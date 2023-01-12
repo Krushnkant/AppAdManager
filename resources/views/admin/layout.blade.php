@@ -150,12 +150,12 @@
                         <i class="fa fa-list" aria-hidden="true"></i><span class="nav-text">Applications List
                     </a> 
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{ route('admin.users.list') }}" aria-expanded="false">
                         <i class="fa fa-users" aria-hidden="true"></i><span class="nav-text">Users
                     </span>
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ route('admin.purchase.list') }}" aria-expanded="false">
                         <i class="fa fa-users" aria-hidden="true"></i><span class="nav-text"> Purchases

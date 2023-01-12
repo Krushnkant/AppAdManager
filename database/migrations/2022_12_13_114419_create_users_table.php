@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->text('password')->nullable();
             $table->text('decrypted_password')->nullable();
             $table->text('profile_pic')->nullable();
-            $table->integer('device_id')->nullable();
+            $table->text('device_id')->nullable();
             $table->enum('device_type', [1,2])->nullable()->comment('1->Android,2->iOS');
             $table->integer('device_company')->nullable();
             $table->text('device_model')->nullable();
