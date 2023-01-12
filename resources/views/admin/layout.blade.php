@@ -59,10 +59,10 @@
     <div class="nav-header">
         <div class="brand-logo">
             <a href="#">
-                <b class="logo-abbr"><img src="{{ asset('images/logo.png') }}" alt=""> </b>
-                <span class="logo-compact"><img src="{{ asset('images/logo-compact.png') }}" alt=""></span>
+                <b class="logo-abbr"><img src="{{ asset('photos/logo.png') }}" alt=""> </b>
+                <span class="logo-compact"><img src="{{ asset('photos/logo-compact.png') }}" alt=""></span>
                 <span class="brand-title text-white">
-                Yuva Gurukul 
+                 Application Ads 
                     <!-- <img src="{{ url('public/images/logo-text.png') }}" alt=""> -->
                 </span>
             </a>
@@ -96,7 +96,7 @@
                             ?>
                                <img src="{{ $user->profile_pic }}" height="40" width="40" alt="">
                             <?php }else{ ?>
-                                <img src="{{ asset('photos/avatar.png') }}" height="40" width="40" alt="">    
+                                <img src="{{ asset('photos/avatar.jpg') }}" height="40" width="40" alt="">    
                             <?php } ?>    
                         </div>
                         <div class="drop-down dropdown-profile   dropdown-menu">
