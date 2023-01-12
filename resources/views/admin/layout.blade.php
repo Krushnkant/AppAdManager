@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>{{ isset($page) ? $page .' | App Ad Manager' : 'App Ad Manager' }}</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('photos/favicon.png') }}">
     <!-- Custom Stylesheet -->
     <link href="{{ asset('plugins/toastr/css/toastr.min.css')}}" rel="stylesheet">
     <link href="{{ asset('plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -96,7 +96,7 @@
                             ?>
                                <img src="{{ $user->profile_pic }}" height="40" width="40" alt="">
                             <?php }else{ ?>
-                                <img src="{{ asset('images/avatar.png') }}" height="40" width="40" alt="">    
+                                <img src="{{ asset('photos/avatar.png') }}" height="40" width="40" alt="">    
                             <?php } ?>    
                         </div>
                         <div class="drop-down dropdown-profile   dropdown-menu">
