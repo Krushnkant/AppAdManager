@@ -85,8 +85,15 @@ class AppController extends BaseController
 
         $data = array();
         $data['userId'] =  $userId;
+        $is_subscription = false;
+        $purchase = Purchase::where('app_id',$request->appId)->where('user_id',$request->userId)->order_by('upload_time', 'desc')->first();
+        if($purchase){
+            if (Carbon::parse($purchase->end_date) > Carbon::now()) {
+                $is_subscription = true;
+            }
+        }
+        $appData->setAttribute('is_subscription', $is_subscription);
         $data['appData'] =  $appData;
-        
         // User App Visit Log
         $userAppLog = new users_apps_visit();
         $userAppLog->user_id = $userId;
