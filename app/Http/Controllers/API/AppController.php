@@ -88,7 +88,7 @@ class AppController extends BaseController
         $is_subscription = false;
         $purchase = Purchase::where('app_id',$request->appId)->where('user_id',$request->userId)->orderby('updated_at', 'desc')->first();
         if($purchase){
-            if (Carbon::parse($purchase->end_date) > Carbon::now()) {
+            if (Carbon::parse($purchase->end_date) < Carbon::now()) {
                 $is_subscription = true;
             }
         }
