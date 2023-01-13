@@ -16,14 +16,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        {{--<h4 class="card-title">User List</h4>--}}
-
-                        <div class="action-section row">
-                            <div class="col-lg-8 col-md-8 col-sm-12">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PriceRangeModel" id="AddPriceRangeBtn"><i class="fa fa-plus" aria-hidden="true"></i></button> 
-                            </div>
-                            
-                        </div>
+                   
 
                         <div class="tab-pane fade show active table-responsive" id="all_user_tab">
                             <table id="all_pricerange" class="table zero-configuration customNewtable" style="width:100%">
