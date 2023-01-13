@@ -18,12 +18,12 @@
                     <div class="card-body">
                         {{--<h4 class="card-title">User List</h4>--}}
 
-                        <div class="action-section row">
+                        {{-- <div class="action-section row">
                             <div class="col-lg-8 col-md-8 col-sm-12">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PriceRangeModel" id="AddPriceRangeBtn"><i class="fa fa-plus" aria-hidden="true"></i></button> 
                             </div>
                             
-                        </div>
+                        </div> --}}
 
                         <div class="action-section mt-3">
                             <div class="row">
@@ -186,6 +186,7 @@
             $('#price').val(data.price);
             $('#title').val(data.title);
             $('#value').val(data.value);
+           
             $("#package_type").val(data.package_type);
             
         })

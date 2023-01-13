@@ -300,6 +300,7 @@
         $('#pricerange_id').val("");
         $('#price-error').html("");
         $('#title-error').html("");
+        $('#key-error').html("");
         
     });
 
@@ -411,6 +412,7 @@
             $('#title').val(data.title);
             $('#value').val(data.value);
             $("#package_type").val(data.package_type);
+            $('#key').val(data.key);
             
         })
     });

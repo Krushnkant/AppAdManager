@@ -18,11 +18,13 @@ class PriceRangeController extends Controller
             'price.required' =>'Please provide a Price',
             'title.required' =>'Please provide a Title.', 
             'value.required' =>'Please provide a value.', 
+            'key.required' =>'Please provide a key.', 
         ];
         $validator = Validator::make($request->all(), [
             'price' => 'required|numeric',
             'title' => 'required',
             'value' => 'required',
+            'key' => 'required',
         ], $messages);
         
         if ($validator->fails()) {
@@ -40,6 +42,7 @@ class PriceRangeController extends Controller
             $pricerange->price = $request->price;
             $pricerange->title = $request->title;
             $pricerange->value = $request->value;
+            $pricerange->key = $request->key;
         }else{
             $action = "add";
             $pricerange = new PriceRange();
@@ -48,6 +51,7 @@ class PriceRangeController extends Controller
             $pricerange->price = $request->price;
             $pricerange->title = $request->title;
             $pricerange->value = $request->value;
+            $pricerange->key = $request->key;
             $pricerange->created_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
         }
     
