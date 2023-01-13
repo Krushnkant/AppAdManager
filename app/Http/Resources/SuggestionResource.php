@@ -20,7 +20,7 @@ class SuggestionResource extends JsonResource
             'user_id' => $this->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
-            'profile_pic' => isset($this->profile_pic) ? 'public/images/profile_pic/'.$this->profile_pic : 'public/images/default_avatar.jpg',
+            'profile_pic' => isset($this->profile_pic) ? 'public/images/profile_pic/'.$this->profile_pic : 'public/photos/default_avatar.jpg',
             'city' => $this->city,
             'state' => $this->state,
             'country' => $this->country,

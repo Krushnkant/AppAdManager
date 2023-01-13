@@ -62,7 +62,7 @@
                 <b class="logo-abbr"><img src="{{ asset('photos/logo.png') }}" alt=""> </b>
                 <span class="logo-compact"><img src="{{ asset('photos/logo-compact.png') }}" alt=""></span>
                 <span class="brand-title text-white">
-                 Application Ads 
+                    Ad Manager 
                     <!-- <img src="{{ url('public/images/logo-text.png') }}" alt=""> -->
                 </span>
             </a>

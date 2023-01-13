@@ -116,6 +116,13 @@
                             <input type="text" class="form-control input-flat" id="value" name="value" placeholder="">
                             <div id="value-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
                         </div>
+
+                        <div class="form-group ">
+                            <label class="col-form-label" for="key">Key <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control input-flat" id="key" name="key" placeholder="">
+                            <div id="key-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
+                        </div>
                         
                     </div>
                     <div class="modal-footer">
@@ -200,8 +207,12 @@
                         $('#value-error').hide();
                     }
 
-                    
-    
+                    if (res.errors.key) {
+                        $('#key-error').show().text(res.errors.key);
+                    } else {
+                        $('#key-error').hide();
+                    }
+
                 }
 
                 if(res.status == 200){

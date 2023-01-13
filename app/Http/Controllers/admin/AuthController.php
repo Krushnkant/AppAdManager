@@ -11,7 +11,7 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    private $page = "Gemver Admin";
+    private $page = "App Ad Manager";
 
     public function index()
     {

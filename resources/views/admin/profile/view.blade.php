@@ -30,10 +30,10 @@
                                 @if(isset($user->profile_pic) && $user->profile_pic != "")
                                 <img class="mr-3" src="{{ url($user->profile_pic) }}" width="80" height="80" alt="Profile" id="Profile_pic_val">
                                 @else
-                                <img class="mr-3" src="{{ url('images/default_avatar.jpg') }}" width="80" height="80" alt="Profile" id="Profile_pic_val">
+                                <img class="mr-3" src="{{ url('photos/default_avatar.jpg') }}" width="80" height="80" alt="Profile" id="Profile_pic_val">
                                 @endif
                                 <div class="media-body">
-                                    <h3 class="mb-0" id="full_name_val">{{isset($user->full_name)?$user->full_name:''}}</h3>
+                                    <h3 class="mb-0" id="full_name_val">{{isset($user->first_name)?$user->first_name:''}}</h3>
                                 </div>
                             </div>
                             @if($user->mobile_no != "")
@@ -101,7 +101,7 @@
                             </label>
                             <input type="file" class="form-control-file" id="profile_pic" onchange="" name="profile_pic">
                             <div id="profilepic-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
-                            <img src="{{ url('images/default_avatar.jpg') }}" class="" id="profilepic_image_show" height="50px" width="50px" style="margin-top: 5px">
+                            <img src="{{ url('photos/default_avatar.jpg') }}" class="" id="profilepic_image_show" height="50px" width="50px" style="margin-top: 5px">
                         </div>
                         <div class="form-group ">
                             <label class="col-form-label" for="full_name">Full Name <span class="text-danger">*</span>
@@ -109,12 +109,12 @@
                             <input type="text" class="form-control input-flat" id="full_name" name="full_name" placeholder="">
                             <div id="full_name-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
                         </div>
-                        <div class="form-group ">
+                        {{-- <div class="form-group ">
                             <label class="col-form-label" for="mobile_no">Mobile No <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control input-flat" id="mobile_no" name="mobile_no" placeholder="">
                             <div id="mobileno-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
-                        </div>
+                        </div> --}}
                         <div class="form-group ">
                             <label class="col-form-label" for="email">E-mail <span class="text-danger">*</span>
                             </label>
@@ -127,7 +127,7 @@
                             <input type="password" class="form-control input-flat" id="password" name="password" placeholder="">
                             <div id="password-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
                         </div>
-                        <div class="form-group ">
+                        {{-- <div class="form-group ">
                             <label class="col-form-label" for="gender">Gender
                             </label>
                             <div>
@@ -143,7 +143,7 @@
                                 <input type="text" class="form-control custom_date_picker" id="dob" name="dob" placeholder="yyyy-mm-dd" data-date-format="yyyy-mm-dd" data-date-end-date="0d"> <span class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar-check"></i></span></span>
                                 <div id="dob-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="user_id" id="user_id">
@@ -164,7 +164,7 @@ $('#profile_pic').change(function(){
     var validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
     if ($.inArray(fileType, validImageTypes) < 0) {
         $('#profilepic-error').show().text("Please provide a Valid Extension Image(e.g: .jpg .png)");
-        var default_image = "{{ url('images/default_avatar.jpg') }}";
+        var default_image = "{{ url('photos/default_avatar.jpg') }}";
         $('#profilepic_image_show').attr('src', default_image);
     }
     else {
@@ -185,7 +185,7 @@ $('#UserModal').on('hidden.bs.modal', function () {
     $('#gender-error').html("");
     $('#email-error').html("");
     $('#password-error').html("");
-    var default_image = "{{ url('images/default_avatar.jpg') }}";
+    var default_image = "{{ url('photos/default_avatar.jpg') }}";
     $('#profilepic_image_show').attr('src', default_image);
 });
 
@@ -194,14 +194,14 @@ $('body').on('click', '#EditProfileBtn', function () {
     $.get("{{ url('profile') }}" +'/' + user_id +'/edit', function (data) {
         $('#user_id').val(data.id);
         if(data.profile_pic==null){
-            var default_image = "{{ url('images/default_avatar.jpg') }}";
+            var default_image = "{{ url('photos/default_avatar.jpg') }}";
             $('#profilepic_image_show').attr('src', default_image);
         }
         else{
             var profile_pic = data.profile_pic;
             $('#profilepic_image_show').attr('src', profile_pic);
         }
-        $('#full_name').val(data.full_name);
+        $('#full_name').val(data.first_name);
         $('#mobile_no').val(data.mobile_no);
         $('#dob').val(data.dob);
         $('#email').val(data.email);
@@ -280,7 +280,7 @@ $('body').on('click', '#save_UserBtn', function () {
                 $("#dob_val").html(res.user.dob);
                 $("#password_val").html(res.user.decrypted_password);
                 if(res.user.profile_pic!=null) {
-                    $('#Profile_pic_val').attr('src', "{{url('images/profile_pic')}}" +"/" + res.user.profile_pic);
+                    $('#Profile_pic_val').attr('src',  res.user.profile_pic);
                 }
                 toastr.success("Profile Updated",'Success',{timeOut: 5000});
             }
