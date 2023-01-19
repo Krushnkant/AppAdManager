@@ -142,6 +142,25 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
+                                            <label class="col-form-label" for="interstitialreward1">Interstitial Reward
+                                            </label>
+                                            <input type="text" class="form-control input-flat" id="interstitialreward1" name="interstitialreward1" value="{{ isset($application->interstitialreward1) ? ($application->interstitialreward1) : '' }}">
+                                            <div id="interstitialreward1-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="interstitialreward2">Interstitial Reward
+                                            </label>
+                                            <input type="text" class="form-control input-flat" id="interstitialreward2" name="interstitialreward2" value="{{ isset($application->interstitialreward2) ? ($application->interstitialreward2) : '' }}">
+                                            <div id="interstitialreward2-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group">
                                             <label class="col-form-label" for="banner1">Banner
                                             </label>
                                             <input type="text" class="form-control input-flat" id="banner1" name="banner1" value="{{ isset($application->banner1) ? ($application->banner1) : '' }}">
@@ -211,6 +230,37 @@
                                                 <option value="1" {{ (isset($application->splash_type) && $application->splash_type == 1) ? 'selected' : '' }}>Interstitial</option>
                                                 <option value="2" {{ (isset($application->splash_type) && $application->splash_type == 2) ? 'selected' : '' }}>App Open</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="app_url">App URL
+                                            </label>
+                                            <input type="text" class="form-control input-flat" id="app_url" name="app_url" value="{{ isset($application->app_url) ? ($application->app_url) : '' }}">
+                                            <div id="app_url-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="app_version">App Version 
+                                            </label>
+                                            <input type="text" class="form-control input-flat" id="app_version" name="app_version" value="{{ isset($application->app_version) ? ($application->app_version) : '' }}">
+                                            <div id="app_version-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="custom_value">Custom Value
+                                            </label>
+                                            <input type="text" class="form-control input-flat" id="custom_value" name="custom_value" value="{{ isset($application->custom_value) ? ($application->custom_value) : '' }}">
+                                            <div id="custom_value-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
                                         </div>
                                     </div>
                                 </div>

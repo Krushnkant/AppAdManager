@@ -59,9 +59,9 @@ class AppController extends BaseController
         if ($isValidUser == false){
             return $this->sendError("This User doesn't available", "Invalid userId", []);
         }
-         
+        $user = User::where(['device_id' => $request->deviceId,'app_id' => $request->appId])->first(); 
         if($userId == 0){
-            $user = User::where(['device_id' => $request->deviceId,'app_id' => $request->appId])->first();
+            
             // New User
             if(!$user){
                 $user = new User();
@@ -73,18 +73,20 @@ class AppController extends BaseController
                 $user->device_model = $request->deviceModel;
                 $user->device_os_version = $request->deviceOsVersion;
                 $user->estatus = 1;
-                $user->created_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+               // $user->created_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
                 
             }
             $user->last_open_time = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
             $user->fcm_id = isset($request->fcm_id)?$request->fcm_id:"";
-            $user->updated_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+           // $user->updated_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
             $user->save();
             $userId = (string)$user->id;
+           
         }
-
+        
         $data = array();
         $data['userId'] =  $userId;
+        $data['user_created_at'] =  $user->created_at;
         $is_subscription = false;
         $purchase = Purchase::where('app_id',$request->appId)->where('user_id',$request->userId)->orderby('updated_at', 'desc')->first();
         if($purchase){

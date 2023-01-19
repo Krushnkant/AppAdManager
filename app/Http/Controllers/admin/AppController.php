@@ -81,6 +81,8 @@ class AppController extends Controller
         $application->native2 = $request->nativeBanner2;
         $application->reward1 = $request->reward1;
         $application->reward2 = $request->reward2;
+        $application->interstitialreward1 = $request->interstitialreward1;
+        $application->interstitialreward2 = $request->interstitialreward2;
         $application->banner1 = $request->banner1;
         $application->banner2 = $request->banner2;
         $application->app_open1 = $request->appOpen1;
@@ -90,6 +92,9 @@ class AppController extends Controller
         $application->click_event_splash = $request->clickInterSpalceval;
         $application->splash_type = $request->splash_type;
         $application->service_key = $request->service_key;
+        $application->app_url = $request->app_url;
+        $application->app_version = $request->app_version;
+        $application->custom_value = $request->custom_value;
         $application->updated_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
 
         $application->save();
