@@ -549,6 +549,9 @@ function adTypeStatus($type_status){
     elseif($type_status == 5){
         $type = "Reward";
     }
+    elseif($type_status == 6){
+        $type = "Interstitial Reward";
+    }
     return  $type;
 }
 
