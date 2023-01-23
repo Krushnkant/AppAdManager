@@ -76,6 +76,7 @@ class NotificationController extends Controller
         $Notification->notify_desc = $request->notify_desc;
         $Notification->notify_thumb = $request->NotificationImg;
         $Notification->value = $request->value;
+        $Notification->click_value = $request->click_value;
         $Notification->save();
         $lastinsertid = $Notification->id;
 
@@ -163,7 +164,7 @@ class NotificationController extends Controller
                     $nestedData['notify_title'] = $Notification->notify_title;
                     $nestedData['notify_desc'] = $Notification->notify_desc;
                     $nestedData['value'] = $Notification->value;
-                    $nestedData['click_values'] = $Notification->click_value;
+                    $nestedData['click_value'] = $Notification->click_value;
                     $nestedData['created_at'] = date('d-m-Y h:i A', strtotime($Notification->created_at));
                     $nestedData['action'] = $action;
                     $data[] = $nestedData;
@@ -205,7 +206,7 @@ class NotificationController extends Controller
         $notification_array['notification_title'] = $notificationarray->notify_title;
         $notification_array['image'] = $notificationarray->notify_thumb;
         $notification_array['value'] = $notificationarray->value;
-        $notification_array['click_values'] = $notificationarray->click_value;
+        $notification_array['click_value'] = $notificationarray->click_value;
         
 
         $notification_array['title'] = $Notification->notify_title;
