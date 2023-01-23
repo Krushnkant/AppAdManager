@@ -162,6 +162,7 @@ class NotificationController extends Controller
                     $nestedData['notify_title'] = $Notification->notify_title;
                     $nestedData['notify_desc'] = $Notification->notify_desc;
                     $nestedData['value'] = $Notification->value;
+                    $nestedData['click_value'] = $Notification->value;
                     $nestedData['created_at'] = date('d-m-Y h:i A', strtotime($Notification->created_at));
                     $nestedData['action'] = $action;
                     $data[] = $nestedData;
