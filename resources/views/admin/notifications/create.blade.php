@@ -46,6 +46,13 @@
             <div id="value-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
         </div>
 
+        <div class="form-group">
+            <label class="col-form-label" for="click_value">Click Value 
+            </label>
+            <input type="text" class="form-control input-flat" id="click_value" name="click_value" placeholder="">
+            <div id="click_value-error" class="invalid-feedback animated fadeInDown" style="display: none;"></div>
+        </div>
+
         
 
         
