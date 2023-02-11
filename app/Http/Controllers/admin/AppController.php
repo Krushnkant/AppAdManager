@@ -117,9 +117,9 @@ class AppController extends Controller
 
             $columns = array(
                 0 => 'id',
-                1 => 'profile_pic',
-                2 => 'contact_info',
-                3 => 'other_info',
+                1 => 'application_details',
+                2 => 'app_bundle',
+                3 => 'users',
                 4 => 'estatus',
                 5 => 'created_at',
                 6 => 'action'
@@ -259,16 +259,18 @@ class AppController extends Controller
                     $editUrl = url('admin/appupdate/'.$appData->id);
                     $reportUrl = url('admin/adsReport/'.$appData->id);
                     $productUrl = url('admin/pricerange/'.$appData->id);
+                    $visitlogUrl = url('admin/visitlog/'.$appData->id);
                     
                     $action = '<a class="btn btn-gray text-blue btn-sm editUserBtn" data-id="' .$appData->id. '" href="'.$editUrl.'" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
                     $action .= '<button class="btn btn-gray text-danger btn-sm deleteAppBtn" data-toggle="modal" data-target="#DeleteAppModal" onclick="" data-id="' .$appData->id. '" Title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
                     $action .= '<a class="btn btn-warning btn-sm" data-id="' .$appData->id. '" href="'.$reportUrl.'" title="Report"><i class="fa fa-file" aria-hidden="true"></i></a>';
-                    $action .= '<a class="btn btn-info btn-sm"  href="'.$productUrl.'" title="Package"><i class="fa fa-product-hunt" aria-hidden="true"></i></a>';
+                    $action .= '<a class="btn btn-info btn-sm" title="Product"  href="'.$productUrl.'" title="Package"><i class="fa fa-product-hunt" aria-hidden="true"></i></a>';
+                    $action .= '<a class="btn btn-info btn-sm" title="Visit Log"  href="'.$visitlogUrl.'" title="Package"><i class="fa fa-history" aria-hidden="true"></i></a>';
                     
                     // $nestedData['id'] = $i;
                     $nestedData['application_details'] = '<img src="'. $app_icon .'" width="40px" height="40px" alt="App Icon"><span class="ml-2">'.$app_name.'</span>';
                     $nestedData['app_bundle'] = $app_bundle;
-                    //$nestedData['ad_info'] = $ad_info;
+                    $nestedData['users'] = User::where('estatus',1)->where('app_id', $appData->id)->count();
                     $nestedData['estatus'] = $estatus;
                     $nestedData['created_at'] = date('d-m-Y h:i A', strtotime($appData->created_at));
                     $nestedData['action'] = $action;

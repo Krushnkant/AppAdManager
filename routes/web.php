@@ -52,7 +52,7 @@ Route::group(['prefix'=>'admin','middleware'=>['auth'],'as'=>'admin.'],function 
     Route::post('allnotificationlist',[\App\Http\Controllers\admin\NotificationController::class,'allnotificationlist'])->name('allnotificationlist');
     Route::get('notifications/{id}/send',[\App\Http\Controllers\admin\NotificationController::class,'sendnotification'])->name('notifications.send');
    
-    Route::get('visitlog',[\App\Http\Controllers\admin\VisitLogController::class,'index'])->name('visitlog.list');
+    Route::get('visitlog/{id}',[\App\Http\Controllers\admin\VisitLogController::class,'index'])->name('visitlog.list');
     Route::post('allvisitloglist',[\App\Http\Controllers\admin\VisitLogController::class,'allvisitloglist'])->name('allvisitloglist');
     
     Route::get('applications',[\App\Http\Controllers\admin\AppController::class,'index'])->name('applications.list');

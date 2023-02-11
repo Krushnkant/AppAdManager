@@ -40,7 +40,7 @@
                                     <th>No</th>
                                     <th>Application</th>
                                     <th>Bundle</th>
-                                    {{-- <th>Ad Info</th> --}}
+                                    <th>Users</th>
                                     <th>Status</th>
                                     <th>Created Date</th>
                                     <th>Other</th>
@@ -128,6 +128,7 @@
                 { "width": "10%", "targets": 3 },
                 { "width": "8%", "targets": 4 },
                 { "width": "12%", "targets": 5 },
+                { "width": "12%", "targets": 6 },
             ],
             "columns": [
                 {data: 'id', name: 'id', class: "text-center", orderable: false,
@@ -137,7 +138,7 @@
                 },
                 {data: 'application_details', name: 'application_details', class: "text-left"},
                 {data: 'app_bundle', name: 'app_bundle', class: "text-left multirow", orderable: false},
-                // {data: 'ad_info', name: 'ad_info', class: "text-left multirow", orderable: false},
+                {data: 'users', name: 'users', class: "text-left multirow", orderable: false},
                 {data: 'estatus', name: 'estatus', orderable: false, searchable: false, class: "text-center"},
                 {data: 'created_at', name: 'created_at', searchable: false, class: "text-left"},
                 {data: 'action', name: 'action', orderable: false, searchable: false, class: "text-center multirow"},

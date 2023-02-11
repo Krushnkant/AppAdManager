@@ -108,6 +108,7 @@
    
         var start_date = $("#start_date").val();
         var end_date = $("#end_date").val();
+        var app_id = "{{ $id }}";
       
         $('#all_visitlog').DataTable({
             "destroy": true,
@@ -125,7 +126,7 @@
                 "url": "{{ url('admin/allvisitloglist') }}",
                 "dataType": "json",
                 "type": "POST",
-                "data":{ _token: '{{ csrf_token() }}' ,start_date,end_date},
+                "data":{ _token: '{{ csrf_token() }}' ,start_date,end_date,app_id:app_id},
                 // "dataSrc": ""
             },
             'columnDefs': [

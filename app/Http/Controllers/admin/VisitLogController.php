@@ -8,8 +8,8 @@ use App\Models\users_apps_visit;
 
 class VisitLogController extends Controller
 {
-    public function index(){
-        return view('admin.visit_log.list');
+    public function index($id){
+        return view('admin.visit_log.list',compact('id'));
     }
 
     public function allvisitloglist(Request $request){
@@ -29,6 +29,7 @@ class VisitLogController extends Controller
             $totalFiltered = $totalData;
 
             $limit = $request->input('length');
+            $app_id = $request->input('app_id');
             $start = $request->input('start');
             $order = $columns[$request->input('order.0.column')];
             $dir = $request->input('order.0.dir');
@@ -37,10 +38,12 @@ class VisitLogController extends Controller
                 $order == "created_at";
                 $dir = 'desc';
             }
-
+          
             if(empty($request->input('search.value')) && isset($request->start_date) && $request->start_date=="" && isset($request->end_date) && $request->end_date=="")
             {
-                $visitlogs = users_apps_visit::with('user');
+                $visitlogs = users_apps_visit::with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
+                    $mainQuery->where('app_id',$app_id);
+                });
                 $visitlogs = $visitlogs->offset($start)
                     ->limit($limit)
                     ->orderBy($order,$dir)
@@ -48,7 +51,9 @@ class VisitLogController extends Controller
             }
             else {
                 $search = $request->input('search.value');
-                $visitlogs =  users_apps_visit::with('user');
+                $visitlogs =  users_apps_visit::with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
+                    $mainQuery->where('app_id',$app_id);
+                });
                 if (isset($request->start_date) && $request->start_date!="" && isset($request->end_date) && $request->end_date!=""){
                     $start_date = $request->start_date;
                     $end_date = $request->end_date;
@@ -68,7 +73,9 @@ class VisitLogController extends Controller
                       ->orderBy($order,$dir)
                       ->get();
 
-                $totalFiltered = users_apps_visit::with('user');
+                $totalFiltered = users_apps_visit::with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
+                    $mainQuery->where('app_id',$app_id);
+                });
                 if (isset($request->start_date) && $request->start_date!="" && isset($request->end_date) && $request->end_date!=""){
                     $start_date = $request->start_date;
                     $end_date = $request->end_date;
