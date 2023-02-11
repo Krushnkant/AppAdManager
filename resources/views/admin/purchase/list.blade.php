@@ -34,8 +34,19 @@
                                         <option value="2">Subscription</option>
                                     </select>
                                 </div>
+
+                                <div class="col-md-3">
+                                    <select class="form-control comman-filter" id="application_filter" name="application_filter">
+                                        <option value=""></option>
+                                        @foreach ($applications as $application)
+                                        <option value="{{ $application->id }}">{{ $application->app_name }}</option>
+                                        @endforeach
+                                        
+                                    </select>
+                                </div>
                             </div>
                         </div>
+                        
 
                         <div class="tab-pane fade show active table-responsive" id="all_user_tab">
                             <table id="all_pricerange" class="table zero-configuration customNewtable" style="width:100%">
@@ -83,6 +94,12 @@
             placeholder: "Select Package",
             allowClear: true
         });
+
+        $('#application_filter').select2({
+            width: '100%',
+            placeholder: "Select application",
+            allowClear: true
+        }).trigger('change'); 
     
     });
 
@@ -92,6 +109,7 @@
         }
    
         var package_filter = $("#package_filter").val();
+        var application_filter = $("#application_filter").val();
       
         $('#all_pricerange').DataTable({
             "destroy": true,
@@ -109,7 +127,7 @@
                 "url": "{{ url('admin/allpurchaseslist') }}",
                 "dataType": "json",
                 "type": "POST",
-                "data":{ _token: '{{ csrf_token() }}' ,package_filter:package_filter},
+                "data":{ _token: '{{ csrf_token() }}' ,package_filter:package_filter,application_filter:application_filter},
                 // "dataSrc": ""
             },
             'columnDefs': [

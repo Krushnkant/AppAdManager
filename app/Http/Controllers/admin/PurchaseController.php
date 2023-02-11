@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Models\Purchase;
 
 class PurchaseController extends Controller
 {
     public function index(){
-        return view('admin.purchase.list');
+        $applications = Application::where('estatus',1)->get();
+        return view('admin.purchase.list',compact('applications'));
     }
 
     public function allpurchaseslist(Request $request){
@@ -26,9 +28,7 @@ class PurchaseController extends Controller
             );
 
             $totalData = Purchase::with('application','user','package');
-            if (isset($request->package_filter) && $request->package_filter !=""){
-                $totalData = $totalData->where('package_type',$request->package_filter);
-            }
+           
             $totalData = $totalData->count();
             $totalFiltered = $totalData;
 
@@ -48,6 +48,9 @@ class PurchaseController extends Controller
                 if (isset($request->package_filter) && $request->package_filter !=""){
                     $priceranges = $priceranges->where('package_type',$request->package_filter);
                 }
+                if (isset($request->application_filter) && $request->application_filter !=""){
+                    $priceranges = $priceranges->where('app_id',$request->application_filter);
+                }
                 $priceranges = $priceranges->offset($start)
                     ->limit($limit)
                     ->orderBy($order,$dir)
@@ -58,6 +61,9 @@ class PurchaseController extends Controller
                 $priceranges =  Purchase::with('application','user','package');
                 if (isset($request->package_filter) && $request->package_filter !=""){
                     $priceranges = $priceranges->where('package_type',$request->package_filter);
+                }
+                if (isset($request->application_filter) && $request->application_filter !=""){
+                    $priceranges = $priceranges->where('app_id',$request->application_filter);
                 }
                 $priceranges = $priceranges->where(function($query) use($search){
                       $query->where('id','LIKE',"%{$search}%");
@@ -70,6 +76,9 @@ class PurchaseController extends Controller
                 $totalFiltered = Purchase::with('application','user','package');
                 if (isset($request->package_filter) && $request->package_filter !=""){
                     $priceranges = $priceranges->where('package_type',$request->package_filter);
+                }
+                if (isset($request->application_filter) && $request->application_filter !=""){
+                    $priceranges = $priceranges->where('app_id',$request->application_filter);
                 }
                 $priceranges = $priceranges->where(function($query) use($search){
                     $query->where('id','LIKE',"%{$search}%");
@@ -95,7 +104,7 @@ class PurchaseController extends Controller
                     $nestedData['application'] = $pricerange->application->app_name;
                     $nestedData['user'] = $pricerange->user->device_id;
                     $nestedData['end_date'] = date('Y-m-d', strtotime($pricerange->end_date));
-                    $nestedData['created_at'] = date('Y-m-d H:i:s', strtotime($pricerange->created_at));
+                    $nestedData['created_at'] = date('Y-m-d H:i A', strtotime($pricerange->created_at));
                     $data[] = $nestedData;
 
                 }

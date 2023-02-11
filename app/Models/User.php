@@ -77,4 +77,8 @@ class User extends Authenticatable
         // $instance->getQuery()->where('estatus','=', 1)->orderBy('sorting','asc');
         // return $instance;
     }
+
+    public function application(){
+        return $this->hasOne(Application::class,'id','app_id');
+    }
 }

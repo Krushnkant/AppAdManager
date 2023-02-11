@@ -175,6 +175,13 @@
                     </span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{ route('admin.visitlog.list') }}" aria-expanded="false">
+                        <i class="fa fa-history" aria-hidden="true"></i><span class="nav-text"> Visit Log
+                    </span>
+                    </a>
+                </li>
                 
     
 

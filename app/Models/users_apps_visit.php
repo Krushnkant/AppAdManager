@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class users_apps_visit extends Model
 {
     use HasFactory;
+
+    public function user(){
+        return $this->hasOne(User::class,'id','user_id');
+    }
 }

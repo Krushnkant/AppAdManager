@@ -350,9 +350,13 @@ class AppController extends Controller
             if(empty($request->input('search.value')) && isset($request->status_filter) && $request->status_filter=="" && isset($request->start_date) && $request->start_date=="" && isset($request->end_date) && $request->end_date=="")
             {
                 $applicationsData = app_ad_requests::with('ad_request_status')->where('app_id',$app_id);
-                if (isset($request->status_filter) && $request->status_filter!=""){
-                    $ad_type = $request->status_filter;
+                if (isset($request->type_filter) && $request->type_filter!=""){
+                    $ad_type = $request->type_filter;
                     $applicationsData = $applicationsData->where('ad_type', $ad_type);
+                }
+                if (isset($request->status_filter) && $request->status_filter!=""){
+                    $ad_status = $request->status_filter;
+                    $applicationsData = $applicationsData->where('ad_current_status', $ad_status);
                 }
                 if (isset($request->start_date) && $request->start_date!="" && isset($request->end_date) && $request->end_date!=""){
                     $start_date = $request->start_date;
@@ -368,9 +372,13 @@ class AppController extends Controller
                 $search = $request->input('search.value');
          
                 $applicationsData =  app_ad_requests::with('ad_request_status')->where('app_id',$app_id);
-                if (isset($request->status_filter) && $request->status_filter!=""){
-                    $ad_type = $request->status_filter;
+                if (isset($request->type_filter) && $request->type_filter!=""){
+                    $ad_type = $request->type_filter;
                     $applicationsData = $applicationsData->where('ad_type', $ad_type);
+                }
+                if (isset($request->status_filter) && $request->status_filter!=""){
+                    $ad_status = $request->status_filter;
+                    $applicationsData = $applicationsData->where('ad_current_status', $ad_status);
                 }
                 if (isset($request->start_date) && $request->start_date!="" && isset($request->end_date) && $request->end_date!=""){
                     $start_date = $request->start_date;
@@ -391,9 +399,13 @@ class AppController extends Controller
 
                 
                 $totalFiltered = app_ad_requests::with('ad_request_status')->where('app_id',$app_id);      
-                if (isset($request->status_filter) && $request->status_filter!=""){
-                    $ad_type = $request->status_filter;
+                if (isset($request->type_filter) && $request->type_filter!=""){
+                    $ad_type = $request->type_filter;
                     $totalFiltered = $totalFiltered->where('ad_type', $ad_type);
+                }
+                if (isset($request->status_filter) && $request->status_filter!=""){
+                    $ad_status = $request->status_filter;
+                    $totalFiltered = $totalFiltered->where('ad_current_status', $ad_status);
                 }
                 if (isset($request->start_date) && $request->start_date!="" && isset($request->end_date) && $request->end_date!=""){
                     $start_date = $request->start_date;

@@ -47,7 +47,7 @@
                         <div class="action-section">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <select class="form-control comman-filter" id="status_filter">
+                                    <select class="form-control comman-filter" id="type_filter">
                                     <option></option>
                                   
                                      <option value="1">Interstitial</option>
@@ -58,11 +58,22 @@
                                 
                                     </select>
                                 </div>
-                                <div class="col-md-3 input-group">
-                                    <input type="text" class="form-control custom_date_picker comman-filter" id="start_date" name="start_date" placeholder="Start Date" data-date-format="yyyy-mm-dd" data-date-end-date="0d"> <span class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar-check"></i></span></span>
+                                <div class="col-md-3">
+                                    <select class="form-control comman-filter" id="status_filter">
+                                    <option></option>
+                                  
+                                     <option value="1">Request</option>
+                                     <option value="2">Load</option>
+                                     <option value="3">Fail</option>
+                                     <option value="4">Show</option>
+                                
+                                    </select>
                                 </div>
                                 <div class="col-md-3 input-group">
-                                    <input type="text" class="form-control custom_date_picker comman-filter" id="end_date" name="end_date" placeholder="End Date" data-date-format="yyyy-mm-dd" data-date-end-date="0d"> <span class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar-check"></i></span></span>
+                                    <input type="text" autocomplete="off" class="form-control custom_date_picker comman-filter" id="start_date" name="start_date" placeholder="Start Date" data-date-format="yyyy-mm-dd" data-date-end-date="0d"> <span class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar-check"></i></span></span>
+                                </div>
+                                <div class="col-md-3 input-group">
+                                    <input type="text" autocomplete="off" class="form-control custom_date_picker comman-filter" id="end_date" name="end_date" placeholder="End Date" data-date-format="yyyy-mm-dd" data-date-end-date="0d"> <span class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar-check"></i></span></span>
                                 </div>
                                 
                             </div>
@@ -150,6 +161,12 @@ $(document).ready(function() {
         allowClear: true
     });
 
+    $('#type_filter').select2({
+        width: '100%',
+        placeholder: "Select Ads Type",
+        allowClear: true
+    });
+
 
 
     $('#Order tbody').on('click', 'td.details-control', function () {
@@ -180,6 +197,7 @@ function order_table(tab_type='',is_clearState=false){
         $('#Order').DataTable().state.clear();
     }
 
+    var type_filter = $("#type_filter").val();
     var status_filter = $("#status_filter").val();
     var start_date = $("#start_date").val();
     var end_date = $("#end_date").val();
@@ -200,7 +218,7 @@ function order_table(tab_type='',is_clearState=false){
             "url": "{{ url('admin/adsReportAllData') }}",
             "dataType": "json",
             "type": "POST",
-            "data":{ id:"{{ $id }}",_token: '{{ csrf_token() }}',status_filter,start_date,end_date},
+            "data":{ id:"{{ $id }}",_token: '{{ csrf_token() }}',status_filter:status_filter,start_date,end_date,type_filter:type_filter},
             // "dataSrc": ""
         },
         'columnDefs': [

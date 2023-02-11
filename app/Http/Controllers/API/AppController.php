@@ -172,15 +172,48 @@ class AppController extends BaseController
                 $secondsFromLastStatus = strtotime($currentTime) - $lastStatusDateTime;
             }
         }
+        if($request->adCurrentStatus == 4){
+           $appReqDatacheck = ad_request_status::where('reqId',$reqId)->where('ad_status',2)->first();
+           if(!$appReqDatacheck){
+                $adStatus = new ad_request_status();
+                $adStatus->app_request_id = $reqId;
+                $adStatus->ad_status = 2;
+                $adStatus->duration_last_status = $secondsFromLastStatus;
+                $adStatus->duration_with_request = $secondsFromRequest;
+                $adStatus->request_time = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+                $adStatus->created_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+                $adStatus->updated_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+                $adStatus->save();
+           }
+        }
 
-        $adStatus = new ad_request_status();
-        $adStatus->app_request_id = $reqId;
-        $adStatus->ad_status = $request->adCurrentStatus;
-        $adStatus->duration_last_status = $secondsFromLastStatus;
-        $adStatus->duration_with_request = $secondsFromRequest;
-        $adStatus->request_time = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
-        $adStatus->created_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
-        $adStatus->updated_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+        if($request->adCurrentStatus == 2){
+            $appReqDatacheck2 = ad_request_status::where('reqId',$reqId)->where('ad_status',2)->first();
+            if(!$appReqDatacheck2){
+                $adStatus = new ad_request_status();
+                $adStatus->app_request_id = $reqId;
+                $adStatus->ad_status = $request->adCurrentStatus;
+                $adStatus->duration_last_status = $secondsFromLastStatus;
+                $adStatus->duration_with_request = $secondsFromRequest;
+                $adStatus->request_time = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+                $adStatus->created_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+                $adStatus->updated_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+            }else{
+                $adStatus =  ad_request_status::find($appReqDatacheck2->id);
+                $adStatus->updated_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+            }
+
+        }else{
+            $adStatus = new ad_request_status();
+            $adStatus->app_request_id = $reqId;
+            $adStatus->ad_status = $request->adCurrentStatus;
+            $adStatus->duration_last_status = $secondsFromLastStatus;
+            $adStatus->duration_with_request = $secondsFromRequest;
+            $adStatus->request_time = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+            $adStatus->created_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+            $adStatus->updated_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+        }
+        
         
         if($adStatus->save()){
             $TypeStatus = adTypeStatus($request->adType);
