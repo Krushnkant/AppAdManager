@@ -173,7 +173,7 @@ class AppController extends BaseController
             }
         }
         if($request->adCurrentStatus == 4){
-           $appReqDatacheck = ad_request_status::where('reqId',$reqId)->where('ad_status',2)->first();
+           $appReqDatacheck = ad_request_status::where('app_request_id',$reqId)->where('ad_status',2)->first();
            if(!$appReqDatacheck){
                 $adStatus = new ad_request_status();
                 $adStatus->app_request_id = $reqId;
@@ -188,7 +188,7 @@ class AppController extends BaseController
         }
 
         if($request->adCurrentStatus == 2){
-            $appReqDatacheck2 = ad_request_status::where('reqId',$reqId)->where('ad_status',2)->first();
+            $appReqDatacheck2 = ad_request_status::where('app_request_id',$reqId)->where('ad_status',2)->first();
             if(!$appReqDatacheck2){
                 $adStatus = new ad_request_status();
                 $adStatus->app_request_id = $reqId;

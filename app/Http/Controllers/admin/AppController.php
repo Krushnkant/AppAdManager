@@ -101,6 +101,7 @@ class AppController extends Controller
 
         return response()->json(['status' => '200', 'action' => $action]);
     }
+    
 
     public function allappslist(Request $request){
        
