@@ -455,13 +455,13 @@ class AppController extends Controller
 
                         $estatus = "";
                         $table = '<table class="subclass text-left" cellpadding="6" cellspacing="0" border="0" style="padding-left:50px; width: 50%">';
-                    $item = 1;
-                    $table .='<tr>';
-                    $table .= '<th>Status </th>';
-                    $table .= '<th>Duration Last Status </th>';
-                    $table .= '<th>Duration With Request </th>';
-                    $table .= '<th>Request Time </th>';
-                    $table .= '</tr>';
+                        $item = 1;
+                        $table .='<tr>';
+                        $table .= '<th>Status </th>';
+                        $table .= '<th>Duration Last Status </th>';
+                        $table .= '<th>Duration With Request </th>';
+                        $table .= '<th>Request Time </th>';
+                        $table .= '</tr>';
                     foreach ($ad_request->ad_request_status as $status_item){
                         //$item_details = json_decode($order_item->item_details,true);
                         //$ProductVariant = ProductVariant::where('id',$item_details['variantId'])->first();

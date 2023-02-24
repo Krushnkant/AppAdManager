@@ -74,12 +74,12 @@ class AppController extends BaseController
                 $user->device_os_version = $request->deviceOsVersion;
                 $user->estatus = 1;
                // $user->created_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
-                
+                $user->last_open_time = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
             }
             
            
         }
-            $user->last_open_time = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
+            
             $user->fcm_id = isset($request->fcm_id)?$request->fcm_id:"";
            // $user->updated_at = new \DateTime(null, new \DateTimeZone('Asia/Kolkata'));
             $user->save();
