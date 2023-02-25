@@ -28,7 +28,7 @@ class VisitLogController extends Controller
 
             $totalData = users_apps_visit::with('user');
             
-            $totalData = $totalData->latest()->groupBy('user_id')->count();
+            $totalData = $totalData->groupBy('user_id')->count();
             $totalFiltered = $totalData;
            // dd($totalFiltered);
             $limit = $request->input('length');
@@ -44,18 +44,18 @@ class VisitLogController extends Controller
           
             if(empty($request->input('search.value')) && isset($request->start_date) && $request->start_date=="" && isset($request->end_date) && $request->end_date=="")
             {
-                $visitlogs = users_apps_visit::with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
+                $visitlogs = users_apps_visit::select(\DB::raw('*, max(created_at) as created_at'))->with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
                     $mainQuery->where('app_id',$app_id);
                 });
                 $visitlogs = $visitlogs->offset($start)
                     ->limit($limit)
-                    ->latest()->groupBy('user_id')
+                    ->groupBy('user_id')
                     ->orderBy($order,$dir)
                     ->get();
             }
             else {
                 $search = $request->input('search.value');
-                $visitlogs =  users_apps_visit::with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
+                $visitlogs =  users_apps_visit::select(\DB::raw('*, max(created_at) as created_at'))->with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
                     $mainQuery->where('app_id',$app_id);
                 });
                 if (isset($request->start_date) && $request->start_date!="" && isset($request->end_date) && $request->end_date!=""){
@@ -74,7 +74,7 @@ class VisitLogController extends Controller
                     })
                       ->offset($start)
                       ->limit($limit)
-                      ->latest()->groupBy('user_id')
+                      ->groupBy('user_id')
                       ->orderBy($order,$dir)
                       ->get();
 
@@ -95,7 +95,7 @@ class VisitLogController extends Controller
                     ->orWhereHas('user.application',function ($mainQuery) use($search) {
                         $mainQuery->where('app_name', 'Like', '%' . $search . '%');
                     });
-                    })->latest()->groupBy('user_id')
+                    })->groupBy('user_id')
                     ->count();
             }
 
@@ -114,8 +114,6 @@ class VisitLogController extends Controller
                     $table .= '<th>Device Company </th>';
                     $table .= '<th>Device Model </th>';
                     $table .= '<th>Device OS Version </th>';
-                    $table .= '<th>Device Model</th>';
-                    $table .= '<th>Device Model</th>';
                     $table .= '<th>Device Id</th>';
                     $table .= '<th>First Open Time</th>';
                     $table .= '<th>Open Time</th>';
@@ -123,7 +121,7 @@ class VisitLogController extends Controller
 
                     $visitlogsss = users_apps_visit::with('user')->where('user_id',$visitlog->user->id)->WhereHas('user.application',function ($mainQuery) use($app_id) {
                         $mainQuery->where('app_id',$app_id);
-                    })->get();
+                    })->orderBy($order,$dir)->get();
 
                     foreach ($visitlogsss as $key =>  $visitlogss){
                         //$item_details = json_decode($order_item->item_details,true);
