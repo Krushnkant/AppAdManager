@@ -31,8 +31,8 @@ class VisitLogController extends Controller
 
             $totalData = users_apps_visit::select('user_id', \DB::raw('count(*) as total'))->join('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id);
             $totalData = $totalData->groupBy('user_id')->get();
-            $totalFiltered = $totalData;
-             dd($totalFiltered);
+            $totalFiltered = count($totalData);
+             //dd($totalFiltered);
             $limit = $request->input('length');
             $start = $request->input('start');
             $order = $columns[$request->input('order.0.column')];
@@ -53,8 +53,8 @@ class VisitLogController extends Controller
                     ->limit($limit)
                     ->groupBy('user_id')
                     ->orderBy('users_apps_visits.created_at',$dir)
-                    ->toSql();
-                    dd($visitlogs);
+                    ->get();
+                   // dd($visitlogs);
             }else{
                 $search = $request->input('search.value');
                 // $visitlogs =  users_apps_visit::select(\DB::raw('*, max(created_at) as created_at'))->with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
