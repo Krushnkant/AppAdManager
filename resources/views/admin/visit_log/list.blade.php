@@ -155,7 +155,7 @@
                 "url": "{{ url('admin/allvisitloglist') }}",
                 "dataType": "json",
                 "type": "POST",
-                "data":{ _token: '{{ csrf_token() }}' ,start_date,end_date,app_id:app_id},
+                "data":{ _token: '{{ csrf_token() }}' ,start_date:start_date,end_date:end_date,app_id:app_id},
                 // "dataSrc": ""
             },
             'columnDefs': [

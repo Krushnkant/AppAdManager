@@ -13,6 +13,7 @@ class VisitLogController extends Controller
     }
 
     public function allvisitloglist(Request $request){
+       
         if ($request->ajax()) {
        
             $columns = array(
@@ -42,7 +43,7 @@ class VisitLogController extends Controller
                 $dir = 'desc';
             }
           
-            if(empty($request->input('search.value')) && isset($request->start_date) && $request->start_date=="" && isset($request->end_date) && $request->end_date=="")
+            if(empty($request->input('search.value')) && $request->start_date==null && $request->end_date==null)
             {
                 $visitlogs = users_apps_visit::select(\DB::raw('*, max(created_at) as created_at'))->with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
                     $mainQuery->where('app_id',$app_id);
@@ -52,8 +53,7 @@ class VisitLogController extends Controller
                     ->groupBy('user_id')
                     ->orderBy($order,$dir)
                     ->get();
-            }
-            else {
+            }else{
                 $search = $request->input('search.value');
                 $visitlogs =  users_apps_visit::select(\DB::raw('*, max(created_at) as created_at'))->with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
                     $mainQuery->where('app_id',$app_id);
@@ -157,8 +157,8 @@ class VisitLogController extends Controller
 
             $json_data = array(
                 "draw"            => intval($request->input('draw')),
-                "recordsTotal"    => intval($totalData),
-                "recordsFiltered" => intval($totalFiltered),
+                "recordsTotal"    => intval(count($visitlogs)),
+                "recordsFiltered" => intval(count($visitlogs)),
                 "data" => $data,
             );
 

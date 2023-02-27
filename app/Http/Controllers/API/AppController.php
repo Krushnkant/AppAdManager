@@ -357,7 +357,7 @@ class AppController extends BaseController
             return $this->sendError("Application Not Exist", "Not Found Error", []);
         }
         $packages = PriceRange::where('application_id',$request->appId)->get();
-        return $this->sendResponseWithData($packages,"Package Purchase Successfully.");
+        return $this->sendResponseWithData($packages,"Package Retrieved Successfully.");
         
     }
 
