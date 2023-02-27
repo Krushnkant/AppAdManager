@@ -31,7 +31,7 @@ class VisitLogController extends Controller
             
             $totalData = $totalData->groupBy('user_id')->count();
             $totalFiltered = $totalData;
-           // dd($totalFiltered);
+            // dd($totalFiltered);
             $limit = $request->input('length');
             $app_id = $request->input('app_id');
             $start = $request->input('start');
@@ -45,9 +45,10 @@ class VisitLogController extends Controller
           
             if(empty($request->input('search.value')) && $request->start_date==null && $request->end_date==null)
             {
-                $visitlogs = users_apps_visit::select(\DB::raw('*, max(created_at) as created_at'))->with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
-                    $mainQuery->where('app_id',$app_id);
-                });
+                // $visitlogs = users_apps_visit::select(\DB::raw('*, max(created_at) as created_at'))->with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
+                //     $mainQuery->where('app_id',$app_id);
+                // });
+                $visitlogs = users_apps_visit::select(\DB::raw('*, max(users_apps_visits.created_at) as created_at'))->leftJoin('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id);
                 $visitlogs = $visitlogs->offset($start)
                     ->limit($limit)
                     ->groupBy('user_id')
@@ -55,9 +56,10 @@ class VisitLogController extends Controller
                     ->get();
             }else{
                 $search = $request->input('search.value');
-                $visitlogs =  users_apps_visit::select(\DB::raw('*, max(created_at) as created_at'))->with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
-                    $mainQuery->where('app_id',$app_id);
-                });
+                // $visitlogs =  users_apps_visit::select(\DB::raw('*, max(created_at) as created_at'))->with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
+                //     $mainQuery->where('app_id',$app_id);
+                // });
+                $visitlogs = users_apps_visit::select(\DB::raw('*, max(users_apps_visits.created_at) as created_at'))->leftJoin('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id);
                 if (isset($request->start_date) && $request->start_date!="" && isset($request->end_date) && $request->end_date!=""){
                     $start_date = $request->start_date;
                     $end_date = $request->end_date;
