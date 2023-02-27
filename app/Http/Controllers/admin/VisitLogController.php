@@ -36,8 +36,8 @@ class VisitLogController extends Controller
                 $totalData = $totalData->whereRaw("DATE(users_apps_visits.created_at) between '".$start_date."' and '".$end_date."'");
             }
             $totalData = $totalData->groupBy('user_id')->get()->toArray();
-            //dd($totalData);
-            $totalFiltered = count($totalData);
+            $totalData = count($totalData);
+            $totalFiltered =  $totalData;
              //dd($totalFiltered);
             $limit = $request->input('length');
             $start = $request->input('start');
