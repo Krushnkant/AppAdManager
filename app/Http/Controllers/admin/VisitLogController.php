@@ -29,7 +29,7 @@ class VisitLogController extends Controller
             
             $app_id = $request->input('app_id');
 
-            $totalData = users_apps_visit::with('user')->where('users.app_id',$app_id);
+            $totalData = users_apps_visit::leftjoin('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id);
             
             $totalData = $totalData->groupBy('user_id')->count();
             $totalFiltered = $totalData;
