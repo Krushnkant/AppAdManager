@@ -126,7 +126,7 @@ class VisitLogController extends Controller
                     //     $mainQuery->where('app_id',$app_id);
                     // })->orderBy($order,$dir)->get();
 
-                    $visitlogsss = users_apps_visit::leftJoin('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id)->orderBy('users_apps_visits.'.$order,$dir)->get();
+                    $visitlogsss = users_apps_visit::leftJoin('users', 'users_apps_visits.user_id', '=', 'users.id')->where('user_id',$visitlog->user->id)->where('users.app_id',$app_id)->orderBy('users_apps_visits.'.$order,$dir)->get();
 
                     foreach ($visitlogsss as $key =>  $visitlogss){
                         //$item_details = json_decode($order_item->item_details,true);
