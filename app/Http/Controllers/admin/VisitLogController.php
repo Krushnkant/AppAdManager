@@ -26,14 +26,15 @@ class VisitLogController extends Controller
                 6=> 'first_open_time',
                 7=> 'open_time'
             );
+            
+            $app_id = $request->input('app_id');
 
-            $totalData = users_apps_visit::with('user');
+            $totalData = users_apps_visit::with('user')->where('users.app_id',$app_id);
             
             $totalData = $totalData->groupBy('user_id')->count();
             $totalFiltered = $totalData;
             // dd($totalFiltered);
             $limit = $request->input('length');
-            $app_id = $request->input('app_id');
             $start = $request->input('start');
             $order = $columns[$request->input('order.0.column')];
             $dir = $request->input('order.0.dir');
@@ -76,6 +77,7 @@ class VisitLogController extends Controller
                         $mainQuery->where('app_name', 'Like', '%' . $search . '%');
                     });
                     });
+                    
                 }    
                 $visitlogs = $visitlogs->offset($start)
                       ->limit($limit)
@@ -83,15 +85,17 @@ class VisitLogController extends Controller
                       ->orderBy('users_apps_visits.created_at',$dir)
                       ->get();
                       //dd($visitlogs);
-                $totalFiltered = users_apps_visit::with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
-                    $mainQuery->where('app_id',$app_id);
-                });
+                // $totalFiltered = users_apps_visit::with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
+                //     $mainQuery->where('app_id',$app_id);
+                // });
+                $totalFiltered = users_apps_visit::select(\DB::raw('*,users_apps_visits.created_at as vscreated_at'))->leftjoin('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id);
                 if (isset($request->start_date) && $request->start_date!="" && isset($request->end_date) && $request->end_date!=""){
                     $start_date = $request->start_date;
                     $end_date = $request->end_date;
                     $totalFiltered = $totalFiltered->whereRaw("DATE(users_apps_visits.created_at) between '".$start_date."' and '".$end_date."'");
                 }
                 
+                if($search != ""){
                 $totalFiltered = $totalFiltered->where(function($query) use($search){
                     $query->where('id','LIKE',"%{$search}%")
                     ->orWhereHas('user',function ($mainQuery) use($search) {
@@ -100,8 +104,10 @@ class VisitLogController extends Controller
                     ->orWhereHas('user.application',function ($mainQuery) use($search) {
                         $mainQuery->where('app_name', 'Like', '%' . $search . '%');
                     });
-                    })->groupBy('user_id')
-                    ->count();
+                    });
+                }  
+                $totalFiltered = $totalFiltered->groupBy('user_id')
+                    ->count();  
             }
 
             $data = array();
@@ -164,8 +170,8 @@ class VisitLogController extends Controller
 
             $json_data = array(
                 "draw"            => intval($request->input('draw')),
-                "recordsTotal"    => intval(count($visitlogs)),
-                "recordsFiltered" => intval(count($visitlogs)),
+                "recordsTotal"    => intval($totalData),
+                "recordsFiltered" => intval($totalFiltered),
                 "data" => $data,
             );
 
