@@ -78,7 +78,7 @@ class VisitLogController extends Controller
                 $visitlogs = $visitlogs->offset($start)
                       ->limit($limit)
                       ->groupBy('user_id')
-                      ->orderBy($order,$dir)
+                      ->orderBy('users_apps_visits.'.$order,$dir)
                       ->get();
 
                 $totalFiltered = users_apps_visit::with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
@@ -122,9 +122,11 @@ class VisitLogController extends Controller
                     $table .= '<th>Open Time</th>';
                     $table .= '</tr>';
 
-                    $visitlogsss = users_apps_visit::with('user')->where('user_id',$visitlog->user->id)->WhereHas('user.application',function ($mainQuery) use($app_id) {
-                        $mainQuery->where('app_id',$app_id);
-                    })->orderBy($order,$dir)->get();
+                    // $visitlogsss = users_apps_visit::with('user')->where('user_id',$visitlog->user->id)->WhereHas('user.application',function ($mainQuery) use($app_id) {
+                    //     $mainQuery->where('app_id',$app_id);
+                    // })->orderBy($order,$dir)->get();
+
+                    $visitlogsss = users_apps_visit::leftJoin('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id)->orderBy($order,$dir)->get();
 
                     foreach ($visitlogsss as $key =>  $visitlogss){
                         //$item_details = json_decode($order_item->item_details,true);
