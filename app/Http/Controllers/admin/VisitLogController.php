@@ -54,7 +54,7 @@ class VisitLogController extends Controller
                     ->groupBy('user_id')
                     ->orderBy('users_apps_visits.created_at',$dir)
                     ->get();
-                    dd($visitlogs);
+                    //dd($visitlogs);
             }else{
                 $search = $request->input('search.value');
                 // $visitlogs =  users_apps_visit::select(\DB::raw('*, max(created_at) as created_at'))->with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
@@ -82,7 +82,7 @@ class VisitLogController extends Controller
                       ->groupBy('user_id')
                       ->orderBy('users_apps_visits.created_at',$dir)
                       ->get();
-                      dd($visitlogs);
+                      //dd($visitlogs);
                 $totalFiltered = users_apps_visit::with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
                     $mainQuery->where('app_id',$app_id);
                 });
