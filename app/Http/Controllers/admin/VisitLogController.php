@@ -111,8 +111,8 @@ class VisitLogController extends Controller
                     });
                     });
                 }  
-                $totalFiltered = $totalFiltered->groupBy('user_id')
-                    ->count();  
+                $totalFiltered = $totalFiltered->groupBy('user_id')->get()->toArray();  
+                $totalFiltered = count($totalFiltered);
             }
 
             $data = array();
@@ -179,7 +179,7 @@ class VisitLogController extends Controller
                 "recordsFiltered" => intval($totalFiltered),
                 "data" => $data,
             );
-
+            
             echo json_encode($json_data);
         }
     }
