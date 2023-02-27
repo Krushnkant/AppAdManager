@@ -30,11 +30,11 @@ class VisitLogController extends Controller
             $app_id = $request->input('app_id');
 
             $totalData = users_apps_visit::join('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id);
-            if ( $request->start_date!="" && $request->end_date!=""){
-                $start_date = $request->start_date;
-                $end_date = $request->end_date;
-                $totalData = $totalData->whereRaw("DATE(users_apps_visits.created_at) between '".$start_date."' and '".$end_date."'");
-            }
+            // if ( $request->start_date!="" && $request->end_date!=""){
+            //     $start_date = $request->start_date;
+            //     $end_date = $request->end_date;
+            //     $totalData = $totalData->whereRaw("DATE(users_apps_visits.created_at) between '".$start_date."' and '".$end_date."'");
+            // }
             $totalData = $totalData->groupBy('user_id')->get()->toArray();
             $totalData = count($totalData);
             $totalFiltered =  $totalData;
