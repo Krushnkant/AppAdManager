@@ -58,7 +58,7 @@ class VisitLogController extends Controller
                 $visitlogs = $visitlogs->offset($start)
                     ->limit($limit)
                     ->groupBy('user_id')
-                    ->orderBy('users_apps_visits.created_at',$dir)
+                    ->orderBy('created_at',$dir)
                     ->get();
                    // dd($visitlogs);
             }else{
@@ -87,7 +87,7 @@ class VisitLogController extends Controller
                 $visitlogs = $visitlogs->offset($start)
                       ->limit($limit)
                       ->groupBy('user_id')
-                      ->orderBy('users_apps_visits.created_at',$dir)
+                      ->orderBy('created_at',$dir)
                       ->get();
                       //dd($visitlogs);
                 // $totalFiltered = users_apps_visit::with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
