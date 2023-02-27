@@ -63,7 +63,7 @@ class VisitLogController extends Controller
                     $end_date = $request->end_date;
                     $visitlogs = $visitlogs->whereRaw("DATE(created_at) between '".$start_date."' and '".$end_date."'");
                 }
-                
+                if($search != ""){
                 $visitlogs = $visitlogs->where(function($query) use($search){
                     $query->where('id','LIKE',"%{$search}%")
                     ->orWhereHas('user',function ($mainQuery) use($search) {
@@ -71,8 +71,9 @@ class VisitLogController extends Controller
                     })->orWhereHas('user.application',function ($mainQuery) use($search) {
                         $mainQuery->where('app_name', 'Like', '%' . $search . '%');
                     });
-                    })
-                      ->offset($start)
+                    });
+                }    
+                $visitlogs = $visitlogs->offset($start)
                       ->limit($limit)
                       ->groupBy('user_id')
                       ->orderBy($order,$dir)
