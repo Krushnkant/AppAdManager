@@ -49,7 +49,7 @@ class VisitLogController extends Controller
                 // $visitlogs = users_apps_visit::select(\DB::raw('*, max(created_at) as created_at'))->with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
                 //     $mainQuery->where('app_id',$app_id);
                 // });
-                $visitlogs = users_apps_visit::join('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id);
+                $visitlogs = users_apps_visit::select(\DB::raw('*, max(created_at) as created_at,users_apps_visits.created_at as vscreated_at'))->join('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id);
                 $visitlogs = $visitlogs->offset($start)
                     ->limit($limit)
                     ->groupBy('user_id')
@@ -161,7 +161,7 @@ class VisitLogController extends Controller
                     $nestedData['device_id'] = $visitlog->device_id;
                     // $nestedData['application'] = $visitlog->user->application->app_name;
                     $nestedData['first_open_time'] = date('d-m-Y h:i A', strtotime($visitlog->last_open_time));
-                    $nestedData['open_time'] =  date('d-m-Y h:i A', strtotime($visitlog->created_at));
+                    $nestedData['open_time'] =  date('d-m-Y h:i A', strtotime($visitlog->vscreated_at));
                     $nestedData['table1'] = $table;
                     $data[] = $nestedData;
 
