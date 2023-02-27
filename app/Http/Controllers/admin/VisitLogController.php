@@ -63,7 +63,7 @@ class VisitLogController extends Controller
                 if (isset($request->start_date) && $request->start_date!="" && isset($request->end_date) && $request->end_date!=""){
                     $start_date = $request->start_date;
                     $end_date = $request->end_date;
-                    $visitlogs = $visitlogs->whereRaw("DATE(created_at) between '".$start_date."' and '".$end_date."'");
+                    $visitlogs = $visitlogs->whereRaw("DATE(users_apps_visits.created_at) between '".$start_date."' and '".$end_date."'");
                 }
                 if($search != ""){
                 $visitlogs = $visitlogs->where(function($query) use($search){
@@ -87,7 +87,7 @@ class VisitLogController extends Controller
                 if (isset($request->start_date) && $request->start_date!="" && isset($request->end_date) && $request->end_date!=""){
                     $start_date = $request->start_date;
                     $end_date = $request->end_date;
-                    $totalFiltered = $totalFiltered->whereRaw("DATE(created_at) between '".$start_date."' and '".$end_date."'");
+                    $totalFiltered = $totalFiltered->whereRaw("DATE(users_apps_visits.created_at) between '".$start_date."' and '".$end_date."'");
                 }
                 
                 $totalFiltered = $totalFiltered->where(function($query) use($search){
