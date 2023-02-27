@@ -15,7 +15,7 @@ class VisitLogController extends Controller
     public function allvisitloglist(Request $request){
        
         if ($request->ajax()) {
-       
+           dd($request->all());
             $columns = array(
                 0 =>'id',
                 1 =>'user_id',
