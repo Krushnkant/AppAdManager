@@ -30,7 +30,8 @@ class VisitLogController extends Controller
             $app_id = $request->input('app_id');
 
             $totalData = users_apps_visit::select('user_id', \DB::raw('count(*) as total'))->join('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id);
-            $totalData = $totalData->groupBy('user_id')->get();
+            $totalData = $totalData->groupBy('user_id')->get()->toArray();
+            dd($totalData);
             $totalFiltered = count($totalData);
              //dd($totalFiltered);
             $limit = $request->input('length');
