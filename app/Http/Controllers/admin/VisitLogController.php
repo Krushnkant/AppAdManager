@@ -141,8 +141,12 @@ class VisitLogController extends Controller
                     // })->orderBy($order,$dir)->get();
 
                     $visitlogsss = users_apps_visit::select('*','users_apps_visits.created_at as vscreated_at')->leftJoin('users', 'users_apps_visits.user_id', '=', 'users.id')->where('user_id',$visitlog->user->id)->where('users.app_id',$app_id)->orderBy('users_apps_visits.'.$order,$dir)->get();
-
+                    $open_time = "";
                     foreach ($visitlogsss as $key =>  $visitlogss){
+                       
+                        if($key == 0){
+                          $open_time = date('d-m-Y h:i A', strtotime($visitlogss->vscreated_at));
+                        }
                         //$item_details = json_decode($order_item->item_details,true);
                         //$ProductVariant = ProductVariant::where('id',$item_details['variantId'])->first();
                         $table .='<tr>';
@@ -167,7 +171,7 @@ class VisitLogController extends Controller
                     $nestedData['device_id'] = $visitlog->device_id;
                     // $nestedData['application'] = $visitlog->user->application->app_name;
                     $nestedData['first_open_time'] = date('d-m-Y h:i A', strtotime($visitlog->last_open_time));
-                    $nestedData['open_time'] =  date('d-m-Y h:i A', strtotime($visitlog->vscreated_at));
+                    $nestedData['open_time'] =  $open_time;
                     $nestedData['table1'] = $table;
                     $data[] = $nestedData;
 
