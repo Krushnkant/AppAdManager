@@ -30,7 +30,7 @@ class VisitLogController extends Controller
             $app_id = $request->input('app_id');
 
             $totalData = users_apps_visit::join('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id);
-            if (isset($request->start_date) && $request->start_date!="" && isset($request->end_date) && $request->end_date!=""){
+            if ( $request->start_date!="" && $request->end_date!=""){
                 $start_date = $request->start_date;
                 $end_date = $request->end_date;
                 $totalData = $totalData->whereRaw("DATE(users_apps_visits.created_at) between '".$start_date."' and '".$end_date."'");
@@ -67,7 +67,7 @@ class VisitLogController extends Controller
                 //     $mainQuery->where('app_id',$app_id);
                 // });
                 $visitlogs = users_apps_visit::select(\DB::raw('*, max(users_apps_visits.created_at) as created_at,users_apps_visits.created_at as vscreated_at'))->join('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id);
-                if (isset($request->start_date) && $request->start_date!="" && isset($request->end_date) && $request->end_date!=""){
+                if ( $request->start_date!=""  && $request->end_date!=""){
                     $start_date = $request->start_date;
                     $end_date = $request->end_date;
                     $visitlogs = $visitlogs->whereRaw("DATE(users_apps_visits.created_at) between '".$start_date."' and '".$end_date."'");
