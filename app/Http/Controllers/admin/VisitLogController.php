@@ -48,7 +48,7 @@ class VisitLogController extends Controller
                 // $visitlogs = users_apps_visit::select(\DB::raw('*, max(created_at) as created_at'))->with('user')->WhereHas('user.application',function ($mainQuery) use($app_id) {
                 //     $mainQuery->where('app_id',$app_id);
                 // });
-                $visitlogs = users_apps_visit::select(\DB::raw('*, max(users_apps_visits.created_at) as created_at,users_apps_visits.created_at as vscreated_at'))->join('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id);
+                $visitlogs = users_apps_visit::join('users', 'users_apps_visits.user_id', '=', 'users.id')->where('users.app_id',$app_id);
                 $visitlogs = $visitlogs->offset($start)
                     ->limit($limit)
                     ->groupBy('user_id')
