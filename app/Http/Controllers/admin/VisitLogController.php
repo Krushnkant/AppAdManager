@@ -52,7 +52,7 @@ class VisitLogController extends Controller
                 $visitlogs = $visitlogs->offset($start)
                     ->limit($limit)
                     ->groupBy('user_id')
-                    ->orderBy($order,$dir)
+                    ->orderBy('users_apps_visits.'.$order,$dir)
                     ->get();
             }else{
                 $search = $request->input('search.value');
