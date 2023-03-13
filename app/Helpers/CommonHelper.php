@@ -621,7 +621,7 @@ function sendPushNotification_customers($data)
             sendNotification($ios_fields,"ios");
         }
 
-        $RegIdChunks = array_chunk($tokens_android,500);
+        $RegIdChunks = array_chunk($tokens_android,100);
         $ArrSize = count($RegIdChunks);
 
         foreach($RegIdChunks as $RegIdChunk){
