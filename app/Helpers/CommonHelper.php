@@ -600,6 +600,7 @@ function sendPushNotification_customers($data)
         $tokens_android = \App\Models\User::where('app_id',$data['app_id'])->pluck('fcm_id')->all();
         $application = \App\Models\Application::where('id',$data['app_id'])->first();
 
+
         if (count($tokens_android) == 0 && count($tokens_ios) == 0) {
 
             return false;
@@ -620,19 +621,24 @@ function sendPushNotification_customers($data)
             sendNotification($ios_fields,"ios");
         }
 
-        if (isset($tokens_android) && !empty($tokens_android)){
-            $android_fields = array(
-                'registration_ids' => $tokens_android,
-                'data' => $data,
-                'notification' => array(
-                    "title" => $data['title'],
-                    "body" => $data['message'],
-                    "image" => url($data['image']),
-                    "priority" => "high",
-                    "sound" => "default",
-                )
-            );
-            sendNotification($android_fields,$application->service_key);
+        $RegIdChunks = array_chunk($tokens_android,500);
+        $ArrSize = count($RegIdChunks);
+
+        foreach($RegIdChunks as $RegIdChunk){
+            if (isset($RegIdChunk) && !empty($RegIdChunk)){
+                $android_fields = array(
+                    'registration_ids' => $RegIdChunk,
+                    'data' => $data,
+                    'notification' => array(
+                        "title" => $data['title'],
+                        "body" => $data['message'],
+                        "image" => url($data['image']),
+                        "priority" => "high",
+                        "sound" => "default",
+                    )
+                );
+                sendNotification($android_fields,$application->service_key);
+            }
         }
 
 
